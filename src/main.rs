@@ -4,19 +4,12 @@ use std::io;
 
 fn main() {
     println!("Guess the number!");
-
     let secret_number = rand::rng().random_range(1..=100);
-    // println!("Secret number is {secret_number}");
 
     loop {
         println!("Please input your guess... ");
 
-        let mut guess = String::new();
-        io::stdin()
-            .read_line(&mut guess)
-            .expect("Failed to read line");
-
-        let guess: u32 = match guess.trim().parse() {
+        let guess: u32 = match read_input().parse() {
             Ok(num) => num,
             Err(_) => {
                 println!("Please type a number!");
@@ -34,4 +27,13 @@ fn main() {
             }
         }
     }
+}
+
+fn read_input() -> String {
+    let mut input = String::new();
+    io::stdin()
+        .read_line(&mut input)
+        .expect("Failed to read line");
+
+    input.trim().to_string()
 }
